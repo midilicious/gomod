@@ -6,6 +6,17 @@ import (
   "os"
 )
 
+func total(rwx string) {
+  var acc int
+  acc = 0
+  if string(rwx[0]) == "r" { acc =+ 4 }
+  if string(rwx[1]) == "w" { acc =+ 2 }
+  if string(rwx[2]) == "x" { acc =+ 1 }
+  oct := string(acc)
+  fmt.Printf(oct)
+//  return oct
+}
+
 func convert(eperm string) {
   fmt.Printf("%s\t", eperm)
   dir := string([]rune(eperm)[0])
@@ -16,6 +27,10 @@ func convert(eperm string) {
   fmt.Printf("%s\t", group)
   everyone := string([]rune(eperm)[7:10])
   fmt.Printf("%s\t", everyone)
+  var operm [4]string 
+  if dir == "-" { operm[0] = "0" }
+//  operm[1] = total(user)
+  fmt.Printf("%s", operm[:])
 //  fmt.Printf(eperms)
 //  return operm
 }
