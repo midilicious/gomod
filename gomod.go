@@ -7,12 +7,20 @@ import (
 )
 
 func total(rwx string) {
-  var acc int
+  var acc, i int
+  var oct string
   acc = 0
-  if string(rwx[0]) == "r" { acc =+ 4 }
-  if string(rwx[1]) == "w" { acc =+ 2 }
-  if string(rwx[2]) == "x" { acc =+ 1 }
-  oct := string(acc)
+  i = 1
+  oct = "0"
+  for i <= 3 {
+    if string(rwx[i]) == "r" { acc =+ 4 }
+    if string(rwx[i]) == "w" { acc =+ 2 }
+    if string(rwx[i]) == "x" { acc =+ 1 }
+    i += 1
+    oct += string(acc)
+
+    // TODO I don't know, maybe build a list for oct then write it into a string?
+  }
   fmt.Printf(oct)
 //  return oct
 }
