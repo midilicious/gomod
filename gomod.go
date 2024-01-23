@@ -7,40 +7,33 @@ import (
 )
 
 func total(rwx string) {
-  var acc, i int
-  var oct string
-  acc = 0
-  i = 1
-  oct = "0"
-  for i <= 3 {
-    if string(rwx[i]) == "r" { acc =+ 4 }
-    if string(rwx[i]) == "w" { acc =+ 2 }
-    if string(rwx[i]) == "x" { acc =+ 1 }
-    i += 1
-    oct += string(acc)
-
-    // TODO I don't know, maybe build a list for oct then write it into a string?
+  acc := 0
+  for i := range rwx {
+    if string([]rune(rwx)[i]) == "r" { acc += 4 }
+    if string([]rune(rwx)[i]) == "w" { acc += 2 }
+    if string([]rune(rwx)[i]) == "x" { acc += 1 }
   }
-  fmt.Printf(oct)
-//  return oct
+  // return acc int
 }
 
 func convert(eperm string) {
   fmt.Printf("%s\t", eperm)
   dir := string([]rune(eperm)[0])
   fmt.Printf("%s\t", dir)
-  user := string([]rune(eperm)[1:4])
-  fmt.Printf("%s\t", user)
+  usr := string([]rune(eperm)[1:4])
+  fmt.Printf("%s\t", usr)
+  // ousr := total(usr)
+  total(usr)
+  // fmt.Println(ousr)
+  // TODO figure out how to return values from the total function without 
+  // getting a "too many return values" error
   group := string([]rune(eperm)[4:7])
   fmt.Printf("%s\t", group)
   everyone := string([]rune(eperm)[7:10])
   fmt.Printf("%s\t", everyone)
   var operm [4]string 
   if dir == "-" { operm[0] = "0" }
-//  operm[1] = total(user)
   fmt.Printf("%s", operm[:])
-//  fmt.Printf(eperms)
-//  return operm
 }
 
 func main() {
