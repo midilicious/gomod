@@ -13,7 +13,9 @@ func total(rwx string) {
     if string([]rune(rwx)[i]) == "w" { acc += 2 }
     if string([]rune(rwx)[i]) == "x" { acc += 1 }
   }
-  // return acc int
+  fmt.Printf("%d", acc)
+  // ret := string(acc)
+  // return ret
 }
 
 func convert(eperm string) {
@@ -23,7 +25,6 @@ func convert(eperm string) {
   usr := string([]rune(eperm)[1:4])
   fmt.Printf("%s\t", usr)
   // ousr := total(usr)
-  total(usr)
   // fmt.Println(ousr)
   // TODO figure out how to return values from the total function without 
   // getting a "too many return values" error
@@ -31,8 +32,12 @@ func convert(eperm string) {
   fmt.Printf("%s\t", group)
   everyone := string([]rune(eperm)[7:10])
   fmt.Printf("%s\t", everyone)
+  total(usr)
+  total(group)
+  total(everyone)
   var operm [4]string 
   if dir == "-" { operm[0] = "0" }
+  // operm[1] = total(usr)
   fmt.Printf("%s", operm[:])
 }
 
