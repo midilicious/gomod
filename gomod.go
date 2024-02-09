@@ -1,21 +1,24 @@
 package main
 
 import (
+  "flag"
   "fmt"
   "log"
   "os"
 )
 
-func total(rwx string) {
+var (
+	recursive = flag.Bool("recursive",false,"appends changes to all subfolders")
+)
+
+func total(rwx string) string {
   acc := 0
   for i := range rwx {
     if string([]rune(rwx)[i]) == "r" { acc += 4 }
     if string([]rune(rwx)[i]) == "w" { acc += 2 }
     if string([]rune(rwx)[i]) == "x" { acc += 1 }
   }
-  fmt.Printf("%d", acc)
-  // ret := string(acc)
-  // return ret
+  return fmt.Sprint(acc)
 }
 
 func convert(eperm string) {
@@ -24,24 +27,21 @@ func convert(eperm string) {
   fmt.Printf("%s\t", dir)
   usr := string([]rune(eperm)[1:4])
   fmt.Printf("%s\t", usr)
-  // ousr := total(usr)
-  // fmt.Println(ousr)
-  // TODO figure out how to return values from the total function without 
-  // getting a "too many return values" error
   group := string([]rune(eperm)[4:7])
   fmt.Printf("%s\t", group)
   everyone := string([]rune(eperm)[7:10])
   fmt.Printf("%s\t", everyone)
-  total(usr)
-  total(group)
-  total(everyone)
-  var operm [4]string 
-  if dir == "-" { operm[0] = "0" }
-  // operm[1] = total(usr)
-  fmt.Printf("%s", operm[:])
+  var operm string 
+  if dir == "-" {
+    operm = fmt.Sprintf("0%s%s%s", total(usr), total(group), total(everyone) ) 
+  }
+  fmt.Println(operm)
 }
 
 func main() {
+  flag.Parse()
+  // Print flag 
+  // fmt.Printf("recursive status:%t", *recursive)
   // stats
   fmt.Printf("Enter the file: ")
   var target string
